@@ -1,6 +1,6 @@
 # Welcome to my repository :)
 
-# This Repository is a project for the printf function in C but I would be creating my sutome function "_printf"
+# This Repository is a project for the printf function in C but I would be creating my custom function "_printf"
 
 *  Explorethis repository as  I and my collaborator show our skill in C programming.
 
@@ -15,5 +15,5 @@
 * Structures in C
 * Memory allocation
 * Memory deallocation
-- And many more, explore the repo and see the reflection of my coding skills :)
+* And many more, explore the repo and see the reflection of my coding skills :)
 
