@@ -121,16 +121,41 @@ int _printf(const char *format, ...)
 
 void _print_integer(int integer)
 {
+	int int_idx = 0;
+
+	char integer_arr[30];
+
+	int integer_arr_len = 0;
+
+	int integer_inst;
+
 	if (integer < 0)
 	{
 		_putchar('-');
 		integer = -(integer);
 	}
 
-	if (integer / 10)
+	if (integer == 0)
 	{
-		_print_integer(integer / 10);
+		_putchar('0');
+		return;
 	}
 
-	_putchar(integer % 10 + '0');
+	integer_inst = integer;
+
+	do {
+		integer_inst = integer_inst / 10;
+		integer_arr_len += 1;
+	} while (integer_inst > 0);
+
+	for (int_idx = (integer_arr_len - 1); int_idx >= 0; int_idx--)
+	{
+		integer_arr[int_idx] = (integer % 10) + '0';
+		integer = integer / 10;
+	}
+
+	for (int_idx = 0; int_idx < integer_arr_len; int_idx++)
+	{
+		_putchar(integer_arr[int_idx]);
+	}
 }
