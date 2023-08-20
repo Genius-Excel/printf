@@ -1,8 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 
-int _printf(const char *format, ...);
-
 /**
 * _printf - this function takes number of consequential arguments
 * and prints the value of the argument recived to stndard output
@@ -13,6 +11,7 @@ int _printf(const char *format, ...);
 * Return: the value of the passed arguments and the number of characers printed.
 */
 
+int _printf(const char *format, ...);
 
 int _printf(const char *format, ...)
 {
@@ -28,7 +27,6 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '\0')
 		{
-			char_print_counter -= 1;
 			break;
 		}
 		else if (format[i] == '%')
