@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
+#include <stdlib.h>
 
 /**
 * _printf - this function takes number of consequential arguments
@@ -123,7 +124,7 @@ void _print_integer(int integer)
 {
 	int int_idx = 0;
 
-	char integer_arr[30];
+	char *integer_arr;
 
 	int integer_arr_len = 0;
 
@@ -148,14 +149,25 @@ void _print_integer(int integer)
 		integer_arr_len += 1;
 	} while (integer_inst > 0);
 
+	integer_arr = (char *)malloc(integer_arr_len + 1);
+
+	if (integer_arr == NULL)
+	{
+		return;
+	}
+
 	for (int_idx = (integer_arr_len - 1); int_idx >= 0; int_idx--)
 	{
 		integer_arr[int_idx] = (integer % 10) + '0';
 		integer = integer / 10;
 	}
 
+	integer_arr[integer_arr_len] = '\0';
+
 	for (int_idx = 0; int_idx < integer_arr_len; int_idx++)
 	{
 		_putchar(integer_arr[int_idx]);
 	}
+
+	free(integer_arr);
 }
