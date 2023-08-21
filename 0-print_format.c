@@ -44,8 +44,15 @@ int _printf(const char *format, ...)
 			{
 				char character_val = va_arg(format_specifier_args, int);
 
-				_putchar(character_val);
-				char_print_counter += 1;
+				if (character_val)
+				{
+					_putchar(character_val);
+					char_print_counter += 1;
+				}
+				else
+				{
+					exit(1);
+				}
 			}
 			else if (format[i] == 's')
 			{
@@ -55,9 +62,16 @@ int _printf(const char *format, ...)
 
 				int arr_len = 0;
 
-				for (str_idx = 0; string_arr[str_idx] != '\0'; str_idx++)
+				if (string_arr)
 				{
-					_putchar(string_arr[str_idx]);
+					for (str_idx = 0; string_arr[str_idx] != '\0'; str_idx++)
+					{
+						_putchar(string_arr[str_idx]);
+					}
+				}
+				else
+				{
+					exit(1);
 				}
 
 				/** counts the total number of characters printed fron the string array.**/
