@@ -121,7 +121,7 @@ int _printf(const char *format, ...)
 					return (-1);
 				}
 				bin_len = binary_counter(binary_val);
-				bin_len = bin_len - 1; /**Exclude the null**/
+				/**bin_len = bin_len - 1; **Exclude the null**/
 				convert_to_binary(binary_val);
 				char_print_counter += bin_len;
 			}
