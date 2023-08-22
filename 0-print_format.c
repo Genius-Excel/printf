@@ -33,7 +33,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '\0')
 		{
-			break;
+			char_print_counter -= 1;
+			return (-1);
 		}
 		else if (format[i] == '%')
 		{
