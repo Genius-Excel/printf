@@ -25,6 +25,10 @@ int _printf(const char *format, ...)
 
 	va_start(format_specifier_args, format);
 
+	if (format == NULL)
+	{
+		return (-1);
+	}
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '\0')
@@ -62,16 +66,9 @@ int _printf(const char *format, ...)
 
 				int arr_len = 0;
 
-				if (string_arr)
+				for (str_idx = 0; string_arr[str_idx] != '\0'; str_idx++)
 				{
-					for (str_idx = 0; string_arr[str_idx] != '\0'; str_idx++)
-					{
-						_putchar(string_arr[str_idx]);
-					}
-				}
-				else
-				{
-					exit(1);
+					_putchar(string_arr[str_idx]);
 				}
 
 				/** counts the total number of characters printed fron the string array.**/
@@ -86,32 +83,34 @@ int _printf(const char *format, ...)
 			}
 			else if (format[i] == 'd')
 			{
+				int dec_len = 0;
 				int integer_val = va_arg(format_specifier_args, int);
 
 				_print_integer(integer_val);
-				if (integer_val < 0)
+				if (!(integer_val))
 				{
-					char_print_counter += 2;
+					return (-1);
 				}
-				else
-				{
-					char_print_counter += 1;
-				}
+
+				dec_len = _integer_length(integer_val);
+				char_print_counter += dec_len;
+
+				_print_integer(integer_val);
 			}
 			else if (format[i] == 'i')
 			{
+				int int_len = 0;
 				int decimal_val = va_arg(format_specifier_args, int);
 
+				if (!(decimal_val))
+				{
+					return (-1);
+				}
+
+				int_len = _integer_length(decimal_val);
+				char_print_counter += int_len;
+
 				_print_integer(decimal_val);
-				/**checks if number is negative to count the '-' sign **/
-				if (decimal_val < 0)
-				{
-					char_print_counter += 2;
-				}
-				else
-				{
-					char_print_counter += 1;
-				}
 			}
 		}
 		else
@@ -128,6 +127,36 @@ int _printf(const char *format, ...)
 
 
 /**
+* _integer_length - this function is a supplement to
+* assist in counting the lenght of the digits
+* @integer: member parameter for which the length is to be known
+* Return: the value of the actual lenght
+*/
+
+int _integer_length(int integer)
+{
+	int actual_length = 0;
+
+	if (integer == 0)
+	{
+		return (1);
+	}
+
+	if (integer < 0)
+	{
+		actual_length += 1;
+		integer = -(integer);
+	}
+
+	do {
+		actual_length += 1;
+		integer /= 10;
+	} while (integer > 0);
+
+	return (actual_length);
+}
+
+/**
 * _print_integer - this function prints the integer value
 * passed as argument
 * @integer: member parameter for the integer
@@ -138,30 +167,17 @@ void _print_integer(int integer)
 {
 	int int_idx = 0;
 
-	char *integer_arr;
-
 	int integer_arr_len = 0;
 
-	int integer_inst;
+	char *integer_arr;
 
-	if (integer < 0)
-	{
-		_putchar('-');
-		integer = -(integer);
-	}
+	integer_arr_len = _integer_length(integer);
 
 	if (integer == 0)
 	{
 		_putchar('0');
 		return;
 	}
-
-	integer_inst = integer;
-
-	do {
-		integer_inst = integer_inst / 10;
-		integer_arr_len += 1;
-	} while (integer_inst > 0);
 
 	integer_arr = (char *)malloc(integer_arr_len + 1);
 
@@ -170,13 +186,17 @@ void _print_integer(int integer)
 		return;
 	}
 
+	if (integer < 0)
+	{
+		_putchar('-');
+		integer = -(integer);
+	}
+
 	for (int_idx = (integer_arr_len - 1); int_idx >= 0; int_idx--)
 	{
 		integer_arr[int_idx] = (integer % 10) + '0';
 		integer = integer / 10;
 	}
-
-	integer_arr[integer_arr_len] = '\0';
 
 	for (int_idx = 0; int_idx < integer_arr_len; int_idx++)
 	{
