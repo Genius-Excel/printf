@@ -125,6 +125,60 @@ int _printf(const char *format, ...)
 				convert_to_binary(binary_val);
 				char_print_counter += bin_len;
 			}
+			else if (format[i] == 'u')
+			{
+				int unsign_len = 0;
+				unsigned int unsign_val = va_arg(format_specifier_args, unsigned int);
+
+				if (!(unsign_val))
+				{
+					return (-1);
+				}
+				unsign_len = unsigned_int_length(unsign_val);
+				_print_unsigned_int(unsign_val);
+				char_print_counter += unsign_len;
+			}
+			else if (format[i] == 'o')
+			{
+				int oct_len = 0;
+				unsigned int octal_val = va_arg(format_specifier_args, unsigned int);
+
+				if (!(octal_val))
+				{
+					return (-1);
+				}
+				oct_len = octal_length(octal_val);
+				_print_octal_int(octal_val);
+				char_print_counter += oct_len;
+			}
+			else if (format[i] == 'x')
+			{
+				int hex_len = 0;
+
+				unsigned int hex_val = va_arg(format_specifier_args, unsigned int);
+
+				if (!(hex_val))
+				{
+					return (-1);
+				}
+				hex_len = hexadex_length(hex_val);
+				_print_hex_form(hex_val, 0);
+				char_print_counter += hex_len;
+			}
+			else if (format[i] == 'X')
+			{
+				int Hex_len = 0;
+
+				unsigned int Hex_val = va_arg(format_specifier_args, unsigned int);
+
+				if (!(Hex_val))
+				{
+					return (-1);
+				}
+				Hex_len = hexadex_length(Hex_val);
+				_print_hex_form(Hex_val, 1);
+				char_print_counter += Hex_len;
+			}
 		}
 		else
 		{
