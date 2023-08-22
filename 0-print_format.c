@@ -82,21 +82,34 @@ int _printf(const char *format, ...)
 
 				char_print_counter += arr_len;
 			}
-			else if (format[i] == 'd' || format[i] == 'i')
+			else if (format[i] == 'i')
 			{
-				int dec_len = 0;
+				int int_len = 0;
 				int integer_val = va_arg(format_specifier_args, int);
 
-				_print_integer(integer_val);
 				if (!(integer_val))
 				{
 					return (-1);
 				}
 
-				dec_len = _integer_length(integer_val);
-				char_print_counter += dec_len;
+				int_len = _integer_length(integer_val);
+				char_print_counter += int_len;
 
 				_print_integer(integer_val);
+			}
+			else if (format[i] == 'd')
+			{
+				int dec_len = 0;
+				int decimal_val = va_arg(format_specifier_args, int);
+
+				if (!(decimal_val))
+				{
+					return (-1);
+				}
+
+				dec_len = _integer_length(decimal_val);
+				_print_integer(decimal_val);
+				char_print_counter += dec_len;
 			}
 		}
 		else
